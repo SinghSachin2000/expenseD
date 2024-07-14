@@ -2,10 +2,15 @@ const mongoose = require("mongoose")
 
 const userSchema = new mongoose.Schema(
   {
-    username: {
+    firstName: {
       type: String,
       required: true,
-      unique: true,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+      trim: true,
     },
     email: {
       type: String,
@@ -16,21 +21,26 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-
-    additionalDetails: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "Profile",
-    },
+    // additionalDetails: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    //   ref: "Profile",
+    // },
     token: {
       type: String,
-    },
-    resetPasswordExpires: {
-      type: Date,
     },
     image: {
       type: String,
     },
+    group:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Group",
+
+        }
+    ]
+
   },
 )
+
 module.exports = mongoose.model("User", userSchema)
