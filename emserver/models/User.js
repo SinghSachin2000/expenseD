@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema(
     image: {
       type: String,
     },
-    group:[{
+    groups:[{
             type:mongoose.Schema.Types.ObjectId,
             ref:"Group",
         }]
