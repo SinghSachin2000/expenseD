@@ -17,7 +17,7 @@ exports.signup=async(req,res)=>{
             otp,
           } = req.body
 
-          if(!firstName || !lastname || !email || !password || !confirmPassword||!otp){
+          if(!firstName || !lastName || !email || !password || !confirmPassword||!otp){
             return res.status(403).Send({
               success:false,
               message:"All Fields are required"
@@ -38,18 +38,12 @@ exports.signup=async(req,res)=>{
             })
           }
 
-          const response = await OTP.find({email}).sort({ createdAt: -1}).limit(1)
-          console.log(response)
-          if(response.length===0){
+          const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
+          if (response.length === 0 || otp !== response[0].otp) {
             return res.status(400).json({
-                success:false,
-                message:"the OTP is not valid",
-            })
-          }else if(otp !==response[0].otp){
-            return res.status(400).json({
-                success:false,
-                message:"the OTP is not valid",
-            })
+              success: false,
+              message: "The OTP is not valid",
+            });
           }
            
          const hashedPassword = await bcrypt.hash(password,10)
@@ -63,9 +57,7 @@ exports.signup=async(req,res)=>{
             firstName,
             lastName,
             email,
-            contactNumber,
             password: hashedPassword,
-            accountType: accountType,
             additionalDetails: profileDetails._id,
             image: "",
          })

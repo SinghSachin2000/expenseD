@@ -1,4 +1,3 @@
-
 const Group = require("../models/Group");
 const User = require("../models/User");
 const Card = require("../models/Card");
@@ -7,10 +6,13 @@ const { uploadImageToCloudinary } = require("../utils/imageUploaders");
 // Create a new group, add members, and create a card
 exports.createGroup = async (req, res) => {
 try{
-    const { name, description} = req.body;
+    const { name, description } = req.body;
     const userId= req.user.id  
-    const image = req.files.image
-
+    const { image }  = req.files;
+//ok
+    console.log("request :",req);
+    console.log("body",req.body);
+    console.log("files",req.files)
     if(!name|| !description || !image){
         return res.status(403).Send({
             success:false,
@@ -28,7 +30,7 @@ try{
         process.env.FOLDER_NAME
     )
     console.log(imageOfGroup)
-
+    console.log(imageOfGroup.secure_url)
     const newGroup = await Group.create({
       name,
       description,

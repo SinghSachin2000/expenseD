@@ -21,10 +21,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    confirmPassword: {
-      type: String,
-      required: true,
-    },
     additionalDetails: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
@@ -41,6 +37,10 @@ const userSchema = new mongoose.Schema(
             ref:"Group",
         }]
   },
+  { timestamps: true }
 )
-
+userSchema.pre("save", function (next) {
+  this.confirmPassword = undefined;
+  next();
+});
 module.exports = mongoose.model("User", userSchema)
