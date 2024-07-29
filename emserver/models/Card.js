@@ -5,7 +5,7 @@ const cardSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  payTo: [
+  payTo:[
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "PayTo",

@@ -2,6 +2,7 @@ const Group = require("../models/Group");
 const User = require("../models/User");
 const Card = require("../models/Card");
 const { uploadImageToCloudinary } = require("../utils/imageUploaders");
+const mongoose  = require("mongoose");
 
 // Create a new group, add members, and create a card
 exports.createGroup = async (req, res) => {
@@ -40,7 +41,7 @@ try{
 
 await User.findByIdAndUpdate({_id:userId},{
     $push:{
-        group : newGroup._id,
+        groups : newGroup._id,
     },
 },{new:true})
 
@@ -60,8 +61,8 @@ res.status(200).json({
 };
 
 exports.editGroup = async (req,res)=>{
-    try{
-const {groupId}= req.body
+ try{
+const {groupId}= req.params
 const updates = req.body
 const group = await Group.findById(groupId)
 if(!group){
@@ -72,7 +73,7 @@ if(!group){
 
 if(req.files){
     console.log("image updated")
-    const image = req.files.groupImage
+    const image = req.files.image
     const groupImage = await uploadImageToCloudinary(
         image ,
         process.env.FOLDER_NAME    
@@ -112,33 +113,36 @@ res.json({
     }
 }
 
-exports.deleteGroup = async(req,res)=>{
-try{
-    const {groupId}= req.body
-    const group =await Group.findById(groupId)
-    if(!group){
+exports.deleteGroup = async (req, res) => {
+    try {
+      const { groupId } = req.params;
+      const group = await Group.findById(groupId);
+  
+      if (!group) {
         return res.status(404).json({
-            message :"Group not found"
-        })
-    }
-     
-    const userPresent = Group.users
-    for(const userId of userPresent){
-        await User.findByIdAndUpdate({userId},{
-            $pull :{groups :groupId}
-        })
-    }
-    await Group.findOneAndDelete(groupId)
-    return res.status(200).json({
+          message: "Group not found"
+        });
+      }
+  
+      const userPresent = group.users;
+      for (const userId of userPresent) {
+        await User.findByIdAndUpdate(userId, {
+          $pull: { groups: groupId }
+        });
+      }
+  
+      await Group.findByIdAndDelete(groupId);
+  
+      return res.status(200).json({
         success: true,
-        message: "Group deleted successfully",
-      })
-}catch(error){
-    console.error(error)
-    return res.status(500).json({
-      success: false,
-      message: "Server error",
-      error: error.message,
-    })
-}
-}
+        message: "Group deleted successfully"
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server error",
+        error: error.message
+      });
+    }
+  };
