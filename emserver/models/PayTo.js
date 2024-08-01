@@ -5,11 +5,15 @@ const payToSchema = new mongoose.Schema(
     amountPay: {
       type: Number,
     },
-    Payto: {
+    payto: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:"User" 
+      ref: "User",
     },
-  },
+    payBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  }
 )
 
 module.exports = mongoose.model("PayTo", payToSchema)

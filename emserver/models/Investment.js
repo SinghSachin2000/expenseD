@@ -9,6 +9,11 @@ const investmentSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  investedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Invest", investmentSchema);

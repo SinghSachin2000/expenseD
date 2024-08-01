@@ -3,6 +3,8 @@ const app = express();
 
 const userRoutes = require("./routes/User")
 const groupRoutes = require("./routes/Group")
+const cardRoutes = require("./routes/Card")
+const investRoutes = require("./routes/Investment")
 
 const fileUpload = require("express-fileupload");
 const cloudinary = require("./config/cloudinary");
@@ -44,6 +46,9 @@ cloudinary.cloudinaryConnect();
 
 app.use("/api/v1/auth",userRoutes);
 app.use("/api/v1/group",groupRoutes);
+app.use("/api/v1/card",cardRoutes);
+app.use("/api/v1/transaction",investRoutes);
+
 
 app.listen(PORT, () => {
 	console.log(`App is listening at ${PORT}`);

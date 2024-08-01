@@ -6,7 +6,7 @@ exports.createsCard = async (req, res) => {
   try {
     const { groupId } = req.params;
 
-    const group = await Group.findById(groupId);
+    const group = await Group.findById(groupId).populate('cards');
     if (!group) {
       return res.status(404).json({
         success: false,
@@ -14,22 +14,28 @@ exports.createsCard = async (req, res) => {
       });
     }
 
+    const usersPresent = group.users.map(user => user._id.toString());
+    const cardUserIds = group.cards.map(card => card.user.toString());
+
     const cards = [];
-    for (const userId of group.users) {
-      const card = await Card.create({
-        user: userId,
-        // Add other card fields here if needed
-      });
-      cards.push(card);
-      group.cards.push(card._id); // Add the card ID to the group's cards array
+
+    for (const userId of usersPresent) {
+      if (!cardUserIds.includes(userId)) {
+        const card = await Card.create({
+          user: userId,
+          group:groupId
+        });
+        cards.push(card); 
+        group.cards.push(card._id); 
+      }
     }
 
-    await group.save(); // Save the group document with the updated cards array
+    await group.save();
 
     return res.status(200).json({
       success: true,
       message: "Cards created successfully",
-      cards, // Include the created cards in the response
+      cards,
     });
   } catch (error) {
     return res.status(500).json({

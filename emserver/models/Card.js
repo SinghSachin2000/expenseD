@@ -5,6 +5,10 @@ const cardSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  group: { 
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Group",
+  },
   payTo:[
     {
       type: mongoose.Schema.Types.ObjectId,
