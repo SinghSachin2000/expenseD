@@ -156,8 +156,6 @@ exports.invest = async (req, res) => {
 };
 
 
-
-
 exports.editInvest = async (req, res) => {
     try {
         const { facility, amount, userIds } = req.body;
