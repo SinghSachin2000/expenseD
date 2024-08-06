@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Input, Button } from "@nextui-org/react";
 import EyeFilledIcon from "../../../assets/openeye.png";
 import EyeSlashFilledIcon from "../../../assets/closeeye.svg";
+import { Link as RouterLink } from "react-router-dom";
 
 export const LoginForm = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -48,6 +49,12 @@ export const LoginForm = () => {
       >
         Login
       </Button>
+      <p className="text-black">
+        Don't have an accout?{" "}
+        <RouterLink to="/signup" className="text-[#ef6407] font-bold">
+          Signup
+        </RouterLink>{" "}
+      </p>
     </div>
   );
 };
