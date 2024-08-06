@@ -1,0 +1,22 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+} */
+
+
+
+
+
+
+
+
+html,
+body {
+  overflow-x: hidden;
+}
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #afb2bf;
+}
