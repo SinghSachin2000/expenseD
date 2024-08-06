@@ -1,5 +1,7 @@
 import Homeimg from "../assets/homeimg.png"
 import Typewriter from 'typewriter-effect';
+import {Button} from "@nextui-org/react"
+import { Link } from "react-router-dom";
 
 export default function Home(){
     return(
@@ -22,9 +24,17 @@ export default function Home(){
             />
             </div>
              
-            <div>
-                <button className="">Login</button>
-                <button>Sign UP</button>
+            <div className="mt-4 ml-6 ">
+             <Link to="/login">
+            <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg m-2">
+              Login
+            </Button>
+             </Link>   
+             <Link to="/signup">
+            <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
+            Sign up
+           </Button>
+             </Link>
             </div>
 
             <div className="mt-[370px]  h-[120px] absolute inset-0 lg:w-[200px] w-40 bg-[#3b444b] bg-opacity-80 "></div>
