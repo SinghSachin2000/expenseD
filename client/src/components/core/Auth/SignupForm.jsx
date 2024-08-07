@@ -2,6 +2,8 @@ import {Input,Button} from "@nextui-org/react";
 import EyeFilledIcon from "../../../assets/openeye.png";
 import EyeSlashFilledIcon from "../../../assets/closeeye.svg";
 import { useState } from "react";
+import { FaLongArrowAltRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function SignupForm(){
     const [isVisibleP, setIsVisibleP] = useState(false);
@@ -49,6 +51,13 @@ function SignupForm(){
          <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg w-[80%] mt-4">
          Sign Up
         </Button>
+
+        <Link to="/">
+        <div className="flex justify-center items-center text-blue-500 pt-2 hover:text-cyan-400  ">
+        <span className="pr-1">Back</span>
+        <span className="mt-1"><FaLongArrowAltRight /></span>
+        </div>
+        </Link>
         </div>
     )
 }
