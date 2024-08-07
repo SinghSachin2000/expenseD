@@ -29,7 +29,7 @@ export default function Header() {
   };
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-transparent fixed">
+    <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-transparent">
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}

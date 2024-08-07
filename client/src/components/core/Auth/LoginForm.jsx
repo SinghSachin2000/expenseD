@@ -2,11 +2,21 @@ import React, { useState } from "react";
 import { Input, Button } from "@nextui-org/react";
 import EyeFilledIcon from "../../../assets/openeye.png";
 import EyeSlashFilledIcon from "../../../assets/closeeye.svg";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { login } from "../../../services/operations/authAPI";
 
 export const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = formData;
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -19,18 +29,22 @@ export const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    dispatch(login(email, password, navigate));
     // Add your form submission logic here
   };
 
   return (
-    <div className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-white  drop-shadow-2xl shadow-2xl rounded-lg flex flex-col items-center justify-center text-white space-y-4 p-4 ">
+    <form
+      onSubmit={handleSubmit}
+      className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-white  drop-shadow-2xl shadow-2xl rounded-lg flex flex-col items-center justify-center text-white space-y-4 p-4 "
+    >
       <h1 className="text-4xl  font-semibold text-black">Login</h1>
       <Input
         type="email"
         variant="underlined"
         label="Email"
         className="max-w-xs text-white"
+        value={email}
         id="email"
         onChange={handleChange}
       />
@@ -60,6 +74,7 @@ export const LoginForm = () => {
         type={isVisible ? "text" : "password"}
         className="max-w-xs text-white"
         id="password"
+        value={password}
         onChange={handleChange}
       />
       <Button
@@ -76,6 +91,6 @@ export const LoginForm = () => {
           Signup
         </RouterLink>{" "}
       </p>
-    </div>
+    </form>
   );
 };
