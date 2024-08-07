@@ -8,7 +8,6 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  Link,
   Button,
 } from "@nextui-org/react";
 
@@ -36,7 +35,7 @@ export default function Header() {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden"
         />
-        <RouterLink to="/">
+        <RouterLink>
           <NavbarBrand>
             <p className=" text-2xl font-bold text-[#ef6407]">
               SLICE
@@ -47,24 +46,27 @@ export default function Header() {
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        {["Home", "About", "Dashboard"].map((item) => (
-          <NavbarItem key={item} isActive={activeLink === item}>
-            <Link
-              href="#"
-              aria-current={activeLink === item ? "page" : undefined}
-              className={activeLink === item ? "text-[#ef6407]" : "text-white"}
-              onClick={() => handleLinkClick(item)}
+        {[
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+          { name: "Dashboard", path: "/dashboard" },
+        ].map((item) => (
+          <NavbarItem key={item.name} isActive={activeLink === item.name}>
+            <RouterLink
+              to={item.path}
+              className={
+                activeLink === item.name ? "text-[#ef6407]" : "text-white"
+              }
+              onClick={() => handleLinkClick(item.name)}
             >
-              {item}
-            </Link>
+              {item.name}
+            </RouterLink>
           </NavbarItem>
         ))}
       </NavbarContent>
       <NavbarContent justify="end">
-        <RouterLink to="/login">
-          <NavbarItem className="hidden lg:flex">
-            <Link className="text-white">Login</Link>
-          </NavbarItem>
+        <RouterLink to="/login" className="hidden lg:flex text-white">
+          <NavbarItem>Login</NavbarItem>
         </RouterLink>
         <RouterLink to="/signup">
           <NavbarItem>
@@ -77,23 +79,15 @@ export default function Header() {
       <NavbarMenu className="bg-[#303841] opacity-95">
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              className={`w-full  ${
+            <RouterLink
+              to={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
+              className={`w-full ${
                 activeLink === item ? "text-[#ef6407]" : "text-white"
               }`}
-              href="#"
-              size="lg"
               onClick={() => handleLinkClick(item)}
             >
               {item}
-            </Link>
+            </RouterLink>
           </NavbarMenuItem>
         ))}
       </NavbarMenu>
