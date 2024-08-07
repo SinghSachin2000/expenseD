@@ -6,6 +6,9 @@ import Signup from "./pages/Signup";
 import Header from "./components/common/Navbar";
 import { About } from "./pages/About";
 import { Dashboard } from "./pages/Dashboard";
+import OpenRoute from "./components/core/Auth/OpenRoute";
+import VerifyEmail from "./pages/VerifyEmail";
+
 
 function App() {
   return (
@@ -14,8 +17,21 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={
+            <OpenRoute>
+                <Login />
+            </OpenRoute>
+           } />
+          <Route path="/signup" element={
+            <OpenRoute>
+              <Signup />
+            </OpenRoute>
+            } />
+            <Route path="/verify-email" element={
+              <OpenRoute>
+                <VerifyEmail/>
+              </OpenRoute>
+            }/>
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
