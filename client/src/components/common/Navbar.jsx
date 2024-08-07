@@ -35,7 +35,7 @@ export default function Header() {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden"
         />
-        <RouterLink>
+        <RouterLink to="/">
           <NavbarBrand>
             <p className=" text-2xl font-bold text-[#ef6407]">
               SLICE
