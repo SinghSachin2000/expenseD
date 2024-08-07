@@ -9,7 +9,7 @@ export const LoginForm = () => {
 
   const toggleVisibility = () => setIsVisible(!isVisible);
   return (
-    <div className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-white bg-opacity-60 drop-shadow-2xl shadow-2xl rounded-lg flex flex-col items-center justify-center text-white space-y-4 p-4 ">
+    <div className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-white  drop-shadow-2xl shadow-2xl rounded-lg flex flex-col items-center justify-center text-white space-y-4 p-4 ">
       <h1 className="text-4xl  font-semibold text-black">Login</h1>
       <Input
         type="email"

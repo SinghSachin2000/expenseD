@@ -8,9 +8,9 @@ export default function Home(){
       <div>
         <div className="flex lg:flex-row flex-col">
 
-           <div className="lg:w-[50%] lg:h-[100vh] h-[90vh] bg-[#303841] p-4 flex flex-col justify-between">
-     <div className="text-xl drop-shadow-lg font-bold  text-[#ef6407] h-10">SLICE<span className="text-[#F5E8E4]">MATE</span></div>
-     <div className="flex flex-col justify-between h-[80vh] ">
+           <div className="lg:w-[50%] lg:h-[100vh] h-[90vh] bg-[#303841] p-4 pt-[80px] flex flex-col justify-between">
+
+        <div className="flex flex-col justify-between h-[80vh] ">
         <div>
         <div className="lg:text-5xl text-3xl font-bold  text-[#F5C7A9]">EXPENSE<span className="text-[#F5E8E4]">divider</span></div>
         <div className="text-white">

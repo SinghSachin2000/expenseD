@@ -4,6 +4,11 @@ import EyeSlashFilledIcon from "../../../assets/closeeye.svg";
 import { useState } from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { sendOtp } from "../../../services/operations/authAPI";
+import {toast} from "react-hot-toast"
+import { setSignupData } from "../../../slices/authSlice";
 
 function SignupForm(){
     const [isVisibleP, setIsVisibleP] = useState(false);
@@ -11,12 +16,62 @@ function SignupForm(){
     const toggleVisibility = () => setIsVisibleP(!isVisibleP);
     const toggleVisibilityC = () => setIsVisibleC(!isVisibleC);
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [formData,setFormData] = useState({
+      firstName:"",
+      lastName:"",
+      email:"",
+      password:"",
+      confirmPassword:"",
+    })
+
+   const {firstName,lastName,email,password,confirmPassword} = formData
+   
+   const handleOnChange=(e)=>{
+    setFormData((prevData)=>({
+      ...prevData,
+      [e.target.name]:e.target.value
+    }))
+   }
+
+    const handleOnSubmit=(e)=>{
+      e.preventDefault()
+
+      if(password !==confirmPassword){
+        toast.error("Password Do Not Match")
+        return
+      }
+      const signupData ={
+        ...formData,
+      }
+
+      dispatch(setSignupData(signupData));
+      dispatch(sendOtp(formData.email,navigate))
+
+      setFormData({
+        firstName:"",
+        lastName:"",
+        email:"",
+        password:"",
+        confirmPassword:"",
+      })
+
+    } 
+
     return(
         <div className="w-[400px] h-[400px] bg-white drop-shadow-2xl  rounded-lg flex flex-col items-center">
-         <Input type="text" variant="underlined" label="First Name" className="max-w-xs"/>
-         <Input type="text" variant="underlined" label="Last Name" className="max-w-xs"/>
-         <Input type="email" variant="underlined" label="Email" className="max-w-xs"/>
+
+        <form onSubmit={handleOnSubmit} >
+         <Input required name="firstName" value={firstName} onChange={handleOnChange} type="text" variant="underlined" label="First Name" className="max-w-xs"/>
+         <Input required name="lastName" value={lastName} onChange={handleOnChange} type="text" variant="underlined" label="Last Name" className="max-w-xs"/>
+         <Input required name="email" value={email} onChange={handleOnChange} type="email" variant="underlined" label="Email" className="max-w-xs"/>
          <Input
+         required
+         name="password"
+         value={password}
+         onChange={handleOnChange}
             label="Password"
             variant="underlined"
             endContent={
@@ -33,6 +88,10 @@ function SignupForm(){
           />
 
     <Input
+    required
+    name="confirmPassword"
+    value={confirmPassword}
+    onChange={handleOnChange}
      label="Confirm Password"
      variant="underlined"
      endContent={
@@ -48,7 +107,7 @@ function SignupForm(){
      className="max-w-xs"
    />
 
-         <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg w-[80%] mt-4">
+         <Button radius="full" type="submit" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg w-[80%] mt-4">
          Sign Up
         </Button>
 
@@ -58,6 +117,9 @@ function SignupForm(){
         <span className="mt-1"><FaLongArrowAltRight /></span>
         </div>
         </Link>
+        </form>
+
+        
         </div>
     )
 }
