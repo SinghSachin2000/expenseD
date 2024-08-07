@@ -76,6 +76,6 @@ export const LoginForm = () => {
           Signup
         </RouterLink>{" "}
       </p>
-    </form>
+    </div>
   );
 };
