@@ -1,0 +1,5 @@
+./emserver/node_modules
+./client/node_modules
+
+./emserver/.env
+./client/.env
