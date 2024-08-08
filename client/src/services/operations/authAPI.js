@@ -62,24 +62,32 @@ export function signUp( firstName,lastName,email, password, confirmPassword,  ot
     }
 }
 
-export function login(email,password,navigate){
-return async(dispatch)=>{
-    const toastId = toast.loading("Loading...")
-    dispatch(setLoading(true))
-    try{
-     const response =await apiConnector("POST",LOGIN_API,{
-        email,password,
-     })
-     console.log("LOGIN API RESPONSE.......",response)
+export function login(email, password,navigate) {
+    return async (dispatch) => {
+        const toastId = toast.loading("Loading...")
+        dispatch(setLoading(true))
+        try {
+            const response = await apiConnector("POST", LOGIN_API, {
+                email,
+                password
+            }, {
+                withCredentials: true
+            })
+            console.log("LOGIN API RESPONSE .....", response);
 
-     if(!response.data.success){
-        throw new Error(response.data.message)
-     }
-     toast.success("Login Successful")
-     dispatch(setToken(response.data.token))
-     
-    }catch(error){
+            if (!response.data.success) {
+                throw new error(response.data.message);
+            }
+            toast.success("Login Successful")
+            dispatch(setToken(response.data.token))
 
+            console.log("Navigating to dashboard...");
+            navigate("/about")
+        } catch (error) {
+            console.log("LOGIN API ERROR............", error)
+            toast.error("Login Failed")
+        }
+        dispatch(setLoading(false))
+        toast.dismiss(toastId)
     }
-}
 }
