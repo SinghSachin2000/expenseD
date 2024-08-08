@@ -62,7 +62,7 @@ function SignupForm(){
 
     return(
         <div className="w-[400px] h-[400px] bg-white drop-shadow-2xl  rounded-lg flex flex-col items-center">
-
+              
         <form onSubmit={handleOnSubmit} >
          <Input required name="firstName" value={firstName} onChange={handleOnChange} type="text" variant="underlined" label="First Name" className="max-w-xs"/>
          <Input required name="lastName" value={lastName} onChange={handleOnChange} type="text" variant="underlined" label="Last Name" className="max-w-xs"/>
